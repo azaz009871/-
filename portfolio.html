@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fantasy的视频作品集 </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        /* 导航栏 */
+        nav {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* 英雄区 */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        /* 作品展示区 */
+        .portfolio {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .portfolio-item-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-item h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .portfolio-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* 关于我 */
+        .about {
+            background: white;
+            padding: 4rem 2rem;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* 联系方式 */
+        .contact {
+            padding: 4rem 2rem;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: #3498db;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #1a252f;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 报价表样式 */
+        .pricing {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .pricing-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #667eea;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #667eea;
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .currency {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .amount {
+            font-size: 3.5rem;
+            color: #667eea;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .period {
+            font-size: 1rem;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        .pricing-features ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+        }
+
+        .pricing-footer {
+            text-align: center;
+        }
+
+        .pricing-note {
+            color: #667eea;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .pricing-extra {
+            text-align: center;
+            margin-top: 3rem;
+            color: #666;
+        }
+
+        .pricing-extra p {
+            margin: 0.5rem 0;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .pricing-container {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* 视频模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .modal video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="#home">首页</a></li>
+            <li><a href="#portfolio">作品集</a></li>
+            <li><a href="#pricing">服务报价</a></li>
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#contact">联系我</a></li>
+        </ul>
+    </nav>
+
+    <!-- 英雄区 -->
+    <section id="home" class="hero">
+        <h1>欢迎来到我的视频作品集</h1>
+        <p>专业的视频剪辑创作者 | 用镜头讲述故事</p>
+    </section>
+
+    <!-- 作品展示区 -->
+    <section id="portfolio" class="portfolio">
+        <h2>我的作品</h2>
+        <div class="portfolio-grid">
+            <!-- 作品1 -->
+            <div class="portfolio-item" onclick="openModal('video1')">
+                <img src="https://via.placeholder.com/400x200/667eea/ffffff?text=作品1" alt="">
+                <div class="portfolio-item-content">
+                    <h3>旅行纪录片</h3>
+                    <p>一段关于云南之旅的视觉记录，展现自然之美</p>
+                </div>
+            </div>
+
+            <!-- 作品2 -->
+            <div class="portfolio-item" onclick="openModal('video2')">
+                <img src="https://via.placeholder.com/400x200/764ba2/ffffff?text=作品2" alt="作品2">
+                <div class="portfolio-item-content">
+                    <h3>音乐MV</h3>
+                    <p>为独立音乐人制作的官方MV，获得10万+播放</p>
+                </div>
+            </div>
+
+            <!-- 作品3 -->
+            <div class="portfolio-item" onclick="openModal('video3')">
+                <img src="https://via.placeholder.com/400x200/3498db/ffffff?text=作品3" alt="作品3">
+                <div class="portfolio-item-content">
+                    <h3>商业广告</h3>
+                    <p>某知名品牌的30秒广告片，强调产品特性</p>
+                </div>
+            </div>
+
+            <!-- 作品4 -->
+            <div class="portfolio-item" onclick="openModal('video4')">
+                <img src="https://via.placeholder.com/400x200/e74c3c/ffffff?text=作品4" alt="作品4">
+                <div class="portfolio-item-content">
+                    <h3>短视频系列</h3>
+                    <p>抖音平台爆款短视频，单条最高50万播放</p>
+                </div>
+            </div>
+
+            <!-- 作品5 -->
+            <div class="portfolio-item" onclick="openModal('video5')">
+                <img src="https://via.placeholder.com/400x200/2ecc71/ffffff?text=作品5" alt="作品5">
+                <div class="portfolio-item-content">
+                    <h3>婚礼纪录片</h3>
+                    <p>记录新人最真挚的情感瞬间</p>
+                </div>
+            </div>
+
+            <!-- 作品6 -->
+            <div class="portfolio-item" onclick="openModal('video6')">
+                <img src="https://via.placeholder.com/400x200/f39c12/ffffff?text=作品6" alt="作品6">
+                <div class="portfolio-item-content">
+                    <h3>企业宣传片</h3>
+                    <p>某科技公司的年度宣传片，展现企业文化</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2>关于我</h2>
+            <p>
+                我是一名 passionate 的视频剪辑创作者，拥有1年的视频制作经验。擅长使用 Premiere Pro、After Effects、DaVinci Resolve 等专业软件，能够独立完成从拍摄到后期制作的全流程工作。
+            </p>
+            <br>
+            <p>
+                我的作品风格多样，包括纪录片、MV、广告、短视频等。我相信每个视频都有其独特的故事，我的工作就是帮助这些故事以最动人的方式呈现给观众。
+            </p>
+            <br>
+            <p>
+                <strong>技能：</strong>视频剪辑 | 调色 | 特效制作 | 音频处理 | 脚本策划
+            </p>
+        </div>
+    </section>
+
+    <!-- 服务报价 -->
+    <section id="pricing" class="pricing">
+        <h2>服务报价</h2>
+        <p class="pricing-subtitle">透明定价，物超所值</p>
+        <div class="pricing-container">
+            <!-- 基础套餐 -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>基础套餐</h3>
+                    <div class="price">
+                        <span class="currency">¥</span>
+                        <span class="amount">500</span>
+                        <span class="period">起</span>
+                    </div>
+                </div>
+                <div class="pricing-features">
+                    <ul>
+                        <li>✓ 15-30秒短视频</li>
+                        <li>✓ 基础剪辑（台词、卡点）</li>
+                        <li>✓ 简单字幕</li>
+                        <li>✓ 基础配乐</li>
+                        <li>✓ 1次修改</li>
+                        <li>✓ 3天交付</li>
+                    </ul>
+                </div>
+                <div class="pricing-footer">
+                    <p class="pricing-note">适合：抖音、快手短视频</p>
+                </div>
+            </div>
+
+            <!-- 标准套餐 -->
+            <div class="pricing-card featured">
+                <div class="pricing-badge">最受欢迎</div>
+                <div class="pricing-header">
+                    <h3>标准套餐</h3>
+                    <div class="price">
+                        <span class="currency">¥</span>
+                        <span class="amount">1500</span>
+                        <span class="period">起</span>
+                    </div>
+                </div>
+                <div class="pricing-features">
+                    <ul>
+                        <li>✓ 1-3分钟视频</li>
+                        <li>✓ 专业剪辑（转场、特效）</li>
+                        <li>✓ 高级字幕/标题</li>
+                        <li>✓ 调色处理</li>
+                        <li>✓ 3次修改</li>
+                        <li>✓ 7天交付</li>
+                    </ul>
+                </div>
+                <div class="pricing-footer">
+                    <p class="pricing-note">适合：宣传片、Vlog、教程</p>
+                </div>
+            </div>
+
+            <!-- 高级套餐 -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>高级套餐</h3>
+                    <div class="price">
+                        <span class="currency">¥</span>
+                        <span class="amount">3000</span>
+                        <span class="period">起</span>
+                    </div>
+                </div>
+                <div class="pricing-features">
+                    <ul>
+                        <li>✓ 5分钟+长视频</li>
+                        <li>✓ 电影级剪辑</li>
+                        <li>✓ 高级特效/动画</li>
+                        <li>✓ 专业调色</li>
+                        <li>✓ 无限次修改</li>
+                        <li>✓ 14天交付</li>
+                    </ul>
+                </div>
+                <div class="pricing-footer">
+                    <p class="pricing-note">适合：纪录片、MV、广告片</p>
+                </div>
+            </div>
+        </div>
+        <div class="pricing-extra">
+            <p>💡 所有套餐均包含：原始素材整理、项目文件交付</p>
+            <p>📞 定制需求请联系我，提供专属报价方案</p>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="contact">
+        <h2>联系我</h2>
+        <p>如果你有视频制作需求，欢迎随时联系我！</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i>📧</i>
+                <span>chenbojin05@gmail.com</span>
+            </div>
+            <div class="contact-item">
+                <i>📱</i>
+                <span>+86 16687093179</span>
+            </div>
+            <div class="contact-item">
+                <i>📍</i>
+                <span>中国 · 云南
+            </div>
+            <div class="contact-item">
+                <i>🔗</i>
+                <span>fantasy</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2026 我的视频作品集.</p>
+    </footer>
+
+    <!-- 视频模态框 -->
+    <div id="videoModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <video id="modalVideo" controls>
+                <source src="" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+        </div>
+    </div>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 视频模态框功能
+        function openModal(videoId) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            
+            // 这里可以设置真实的视频URL
+            // video.src = `videos/${videoId}.mp4`;
+            
+            // 暂时使用占位视频
+            video.src = 'https://www.w3schools.com/html/mov_bbb.mp4';
+            
+            modal.classList.add('active');
+            video.play();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            
+            video.pause();
+            modal.classList.remove('active');
+        }
+
+        // 点击模态框背景关闭
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // ESC键关闭模态框
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // 滚动时导航栏效果
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
+            } else {
+                nav.style.backgroundColor = '#2c3e50';
+            }
+        });
+    </script>
+</body>
+</html>
